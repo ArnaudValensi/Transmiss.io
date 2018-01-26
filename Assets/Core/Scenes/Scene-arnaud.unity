@@ -284,6 +284,16 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114928414693850652, guid: f36591d725bb24d4fbdbf22af736d821,
+        type: 2}
+      propertyPath: mouseConfinementRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54195523522113212, guid: f36591d725bb24d4fbdbf22af736d821,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f36591d725bb24d4fbdbf22af736d821, type: 2}
   m_IsPrefabParent: 0
