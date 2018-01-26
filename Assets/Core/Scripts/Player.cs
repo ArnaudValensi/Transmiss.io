@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
-	public float movementSpeed = 0.2f;
+	public float movementSpeed = 5f;
 	public float rotationSpeed = 1f;
 	public Transform cameraTransform;
-	public float mouseConfinementRadius;
 
 	CharacterController controller;
 	Vector3 direction = Vector3.zero;
