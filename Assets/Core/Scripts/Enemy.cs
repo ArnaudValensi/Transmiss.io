@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour {
     int behaviour = 0;
 
     void Start () {
-        Debug.Log("Start enemy");
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
@@ -30,6 +29,7 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator setBehaviour()
     {
+		yield return null;
         while (true)
         {
             behaviour = Random.Range(0, 3);

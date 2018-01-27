@@ -10,10 +10,8 @@ public class EnemyManager : MonoBehaviour {
     GameManager gameManager;
 
 	public void Start () {
-        Debug.Log("Start enemyManager");
         gameManager = GameManager.Instance;
         instantiateEnnemies();
-        Debug.Log("End enemy instance");
     }
 
     void instantiateEnnemies()

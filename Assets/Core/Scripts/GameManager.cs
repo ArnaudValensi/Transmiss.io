@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 
         for (int i = 0; i < colors.Count; i++)
         {
-            print(colors[i]);
-            print(entitiesOfColors[i]);
             colorsEntities.Add(colors[i], entitiesOfColors[i]);
         }
     }
