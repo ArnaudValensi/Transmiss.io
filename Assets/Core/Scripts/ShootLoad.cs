@@ -17,8 +17,14 @@ public class ShootLoad : MonoBehaviour {
 	void Start() {
 		for (int i = 0; i < nbIndicators; i++) {
 			GameObject indicator = Instantiate(indicatorPrefab, transform);
+			Vector3 indicatorPosition = indicator.transform.localPosition;
 
-			indicator.transform.SetZ(indicator.transform.position.z + (float)i * indicatorsOffset);
+			indicator.transform.localPosition = new Vector3(
+				indicatorPosition.x,
+				indicatorPosition.y,
+				indicatorPosition.z + (float)i * indicatorsOffset
+			);
+
 			indicator.SetActive(false);
 			indicators.Add(indicator);
 		}
