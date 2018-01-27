@@ -7,13 +7,17 @@ public class Enemy : MonoBehaviour {
 
     public GameObject player;
     public GameManager gameManager;
+
+    Shoot shoot;
     NavMeshAgent agent;
+
     float time = 0;
     float previousTime = 0;
 
     // Use this for initialization
     void Start () {
         agent = GetComponent<NavMeshAgent>();
+		shoot = GetComponent<Shoot>();
     }
 
     // Update is called once per frame
@@ -27,14 +31,10 @@ public class Enemy : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            shoot();
+            StartCoroutine("Shoot");
         }
         previousTime = time;
     }
-
-
-    
-
 
     // Return a random point in the map
     Vector3 randomInMap(Vector2 mins, Vector2 maxes)
@@ -46,11 +46,20 @@ public class Enemy : MonoBehaviour {
         return (targetPoint);
     }
 
-    void shoot()
+    IEnumerator Shoot()
     {
+        // Cast a shoot
+        agent.isStopped = true;
+        float randomCastTime = Random.value * 5;
+        for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
+        {
+            yield return null;
+        }
+        // Cast done, shoot
         Vector3 randomTarget = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
         Vector3 shootVector = randomTarget - GetComponent<Transform>().position;
-        float randomCastTime = Random.value * 5;
         shootVector.Normalize();
+        shoot.DoShoot(shootVector);
+        agent.isStopped = false;
     }
 }
