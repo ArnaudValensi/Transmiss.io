@@ -822,26 +822,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114203279831610328, guid: 489e70e706093404b87b86a861e58ca2,
-        type: 2}
-      propertyPath: boundsMax.x
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114203279831610328, guid: 489e70e706093404b87b86a861e58ca2,
-        type: 2}
-      propertyPath: boundsMin.y
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114203279831610328, guid: 489e70e706093404b87b86a861e58ca2,
-        type: 2}
-      propertyPath: boundsMin.x
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114203279831610328, guid: 489e70e706093404b87b86a861e58ca2,
-        type: 2}
-      propertyPath: boundsMax.y
-      value: 40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 489e70e706093404b87b86a861e58ca2, type: 2}
   m_IsPrefabParent: 0
