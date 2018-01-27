@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 
     public GameObject player;
+    public EnemyManager enemyManager;
     public GameManager gameManager;
+    public float rotationSpeed;
 
     Shoot shoot;
     NavMeshAgent agent;
@@ -46,18 +48,43 @@ public class Enemy : MonoBehaviour {
         return (targetPoint);
     }
 
+    // Return a character to target
+    Vector3 findClosestTarget()
+    {
+        Vector3 targetPos = new Vector3(100, 100, 100);
+        float dist = Vector3.Distance(transform.position, targetPos);
+        for (int i = 0; i < enemyManager.characterList.Length; i++)
+        {
+            float dist2 = Vector3.Distance(transform.position, enemyManager.characterList[i].GetComponent<Transform>().position);
+            if(dist2 < dist && dist2 != 0)
+            {
+                targetPos = enemyManager.characterList[i].transform.position;
+                dist = dist2;
+            }
+        }
+        return (targetPos);
+    }
+
     IEnumerator Shoot()
     {
-        // Cast a shoot
+        Vector3 targetPos = new Vector3();
+
+
         agent.isStopped = true;
         float randomCastTime = Random.value * 5;
+        // Shoot casting
         for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
         {
+            targetPos = findClosestTarget();
+            //targetPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
+            Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
+            float strength = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
             yield return null;
         }
+        print(transform.rotation);
         // Cast done, shoot
-        Vector3 randomTarget = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
-        Vector3 shootVector = randomTarget - GetComponent<Transform>().position;
+        Vector3 shootVector = targetPos - transform.position;
         shootVector.Normalize();
         shoot.DoShoot(shootVector);
         agent.isStopped = false;
