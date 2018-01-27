@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -6,18 +8,26 @@ public class Bullet : MonoBehaviour
     public GameManager gameManager;
     public float force = 1f;
     public GameObject shooter;
+    public float lifeSpan;
 
     void Start()
     {
         gameManager = GameManager.Instance;
         GetComponent<MeshRenderer>().material.color = shooter.GetComponent<MeshRenderer>().material.color;
         GetComponent<Rigidbody>().AddForce(transform.forward * force);
+        StartCoroutine("DestroyBullet");
     }
 
     // Update is called once per frame
     void Update()
     {
         GetComponent<MeshRenderer>().material.color = shooter.GetComponent<MeshRenderer>().material.color;
+    }
+
+    IEnumerator DestroyBullet()
+    {
+        yield return new WaitForSeconds(lifeSpan);
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter(Collider collider)
@@ -40,5 +50,4 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
 }

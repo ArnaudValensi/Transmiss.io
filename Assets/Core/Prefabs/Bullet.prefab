@@ -111,7 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ed3a65d24cd4caa82a175dad4896bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   force: 600
+  shooter: {fileID: 0}
+  lifeSpan: 2
 --- !u!135 &135269527485278316
 SphereCollider:
   m_ObjectHideFlags: 1

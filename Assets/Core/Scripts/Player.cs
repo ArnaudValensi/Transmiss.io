@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public float rotationSpeed = 1f;
 	public Transform cameraTransform;
 
+    GameManager gameManager;
 	CharacterController controller;
 	Vector3 direction = Vector3.zero;
 	Shoot shoot;
@@ -13,9 +14,11 @@ public class Player : MonoBehaviour {
 	Transform indicator;
 
 	void Start() {
+		gameManager = GameManager.Instance;
 		controller = GetComponent<CharacterController>();
 		shoot = GetComponent<Shoot>();
-		indicator = transform.Find("IndicatorHolder");
+        gameManager.entityList.Add(this.gameObject);
+        indicator = transform.Find("IndicatorHolder");
 	}
 
 	void Update() {
@@ -36,7 +39,13 @@ public class Player : MonoBehaviour {
 			StartCoroutine(LoadShoot());
 		}
 
-		UpdateIndicator();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            setTeam();
+        }
+
+        UpdateIndicator();
+        transform.SetY(0);
 	}
 
 	void UpdateIndicator() {
@@ -54,10 +63,24 @@ public class Player : MonoBehaviour {
 
 		isShooting = false;
 		shoot.ReleaseShoot(direction);
-		// shoot.DoShoot(direction, this.gameObject);
 	}
 
-	bool GetMousePositionInWorld(out Vector3 targetPosition) {
+    public void setTeam()
+    {
+        Color tmpColor = GetComponent<MeshRenderer>().material.color;
+        for (int i = 0; i < gameManager.entitiesOfColors.Count; i++)
+        {
+            if (tmpColor == gameManager.colors[i])
+                gameManager.entitiesOfColors[i]--;
+        }
+        int j = 0;
+        while (gameManager.entitiesOfColors[j] != 0)
+            j++;
+        GetComponent<MeshRenderer>().material.color = gameManager.colors[j];
+        gameManager.entitiesOfColors[j] += 1;
+    }
+
+    bool GetMousePositionInWorld(out Vector3 targetPosition) {
 		Vector3 mouse = Input.mousePosition;
 		Ray castPoint = Camera.main.ScreenPointToRay(mouse);
 		RaycastHit hit;

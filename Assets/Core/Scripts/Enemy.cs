@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour {
     int behaviour = 0;
 
     void Start () {
-        Debug.Log("Start enemy");
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
@@ -31,8 +30,7 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator setBehaviour()
     {
-        yield return null;
-
+		yield return null;
         while (true)
         {
             behaviour = Random.Range(0, 3);
@@ -88,6 +86,12 @@ public class Enemy : MonoBehaviour {
     // Change team
     public void setTeam()
     {
+        Color tmpColor = GetComponent<MeshRenderer>().material.color;
+        for (int i = 0; i < gameManager.entitiesOfColors.Count; i++)
+        {
+            if (tmpColor == gameManager.colors[i])
+                gameManager.entitiesOfColors[i]--;
+        }
         int j = 0;
         while (gameManager.entitiesOfColors[j] != 0)
             j++;
