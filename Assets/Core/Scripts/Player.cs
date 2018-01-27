@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
 			y * movementSpeed * Time.deltaTime
 		);
 
-		controller.Move(movement);
+        
+
+        controller.Move(movement);
 	}
 }
