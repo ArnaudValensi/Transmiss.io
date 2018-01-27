@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,29 +15,73 @@ public class Enemy : MonoBehaviour {
 
     float time = 0;
     float previousTime = 0;
+    int behaviour = 0;
+
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
+        Debug.Log("Start enemy");
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
 		gameManager = GameManager.Instance;
 		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
+        StartCoroutine("setBehaviour");
     }
 
-    // Update is called once per frame
-    void Update () {
-        time += Time.deltaTime;
-        if (Mathf.Ceil(time) != Mathf.Ceil(previousTime))
+    IEnumerator setBehaviour()
+    {
+        while (true)
+        {
+            behaviour = Random.Range(0, 3);
+            if (behaviour == 0)
+                StartCoroutine("roam");
+            if (behaviour == 1)
+                StartCoroutine("flee");
+            if (behaviour == 2)
+                StartCoroutine("rush");
+            yield return new WaitForSeconds(Random.Range(4000, 10000) / 1000);
+        }
+    }
+
+    // BEHAVIOURS
+    IEnumerator rush()
+    {
+        while (behaviour == 2)
+        {
+            Vector3 targetPoint = findClosestTarget();
+            agent.SetDestination(targetPoint);
+            if (Random.Range(0, 100) > 95 && agent.isStopped == false)
+                StartCoroutine("Shoot");
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+
+    IEnumerator flee()
+    {
+        while (behaviour == 1)
+        {
+            Vector3 threatPoint = findClosestTarget();
+            Vector3 targetPoint = new Vector3(
+                transform.position.x + (transform.position.x - threatPoint.x),
+                transform.position.y,
+                transform.position.z + (transform.position.z - threatPoint.z));
+            agent.SetDestination(targetPoint);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+
+    IEnumerator roam()
+    {
+        while (behaviour == 0)
         {
             Vector3 targetPoint = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             agent.SetDestination(targetPoint);
-            if (Random.Range(0, 100) > 25)
+            if (Random.Range(0, 100) > 25 && agent.isStopped == false)
                 StartCoroutine("Shoot");
+            yield return new WaitForSeconds(Random.Range(2000, 5000) / 1000);
         }
-        
-        previousTime = time;
     }
 
     // Return a random point in the map
@@ -71,12 +115,11 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Shoot()
     {
+        agent.isStopped = true;
 		shoot.LoadShoot();
 
-        yield return new WaitForSeconds(Random.Range(0, 2000) / 1000);
 		Vector3 targetPos;
 
-        agent.isStopped = true;
         float randomCastTime = Random.Range(0, 3000) / 1000;
         // Shoot casting
         for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
@@ -85,7 +128,7 @@ public class Enemy : MonoBehaviour {
             //targetPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
             float strength = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
-			var rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
+			Quaternion rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
 			transform.SetRotationY(rotation.eulerAngles.y);
             yield return null;
         }

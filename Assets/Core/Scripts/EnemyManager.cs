@@ -9,10 +9,12 @@ public class EnemyManager : MonoBehaviour {
 
     GameManager gameManager;
 
-	void Start () {
-		gameManager = GameManager.Instance;
+	public void Start () {
+        Debug.Log("Start enemyManager");
+        gameManager = GameManager.Instance;
         instantiateEnnemies();
-	}
+        Debug.Log("End enemy instance");
+    }
 
     void instantiateEnnemies()
     {
@@ -21,6 +23,7 @@ public class EnemyManager : MonoBehaviour {
         {
             Vector3 randomPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.AngleAxis(45, Vector3.up), enemiesHolder.transform);
+            enemy.GetComponent<Enemy>().Init();
             setTeam(enemy);
             gameManager.entityList.Add(enemy);
         }

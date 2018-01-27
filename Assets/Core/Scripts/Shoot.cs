@@ -10,10 +10,12 @@ public class Shoot : MonoBehaviour {
 	void Start() {
 		bulletHolder = GameObject.Find("/Environment/BulletsHolder").transform;
 		shootLoad = transform.Find("IndicatorHolder/ShootLoad").GetComponent<ShootLoad>();
+        Debug.Log("ICI");
 	}
 
 	public void LoadShoot() {
-		shootLoad.StartLoading();
+        Debug.Log("LA");
+        shootLoad.StartLoading();
 	}
 
 	public void ReleaseShoot(Vector3 direction) {

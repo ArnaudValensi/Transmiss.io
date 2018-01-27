@@ -11,10 +11,17 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 
     public Dictionary<Color, int> colorsEntities;
 
+    void Start()
+    {
+        initiateColorsEntities();
+    }
+
     void initiateColorsEntities()
     {
         for (int i = 0; i < colors.Count; i++)
         {
+            print(colors[i]);
+            print(entitiesOfColors[i]);
             colorsEntities.Add(colors[i], entitiesOfColors[i]);
         }
     }
