@@ -830,7 +830,7 @@ Prefab:
     - target: {fileID: 114479738567594888, guid: 9487d0eec814b45d3a593165079d1293,
         type: 2}
       propertyPath: nbEnnemies
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9487d0eec814b45d3a593165079d1293, type: 2}
