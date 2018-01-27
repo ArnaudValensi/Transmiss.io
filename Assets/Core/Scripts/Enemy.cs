@@ -4,11 +4,10 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
 
-    public GameObject player;
-    public EnemyManager enemyManager;
-    public GameManager gameManager;
     public float rotationSpeed;
 
+	EnemyManager enemyManager;
+	GameManager gameManager;
     Shoot shoot;
     NavMeshAgent agent;
 
@@ -19,6 +18,8 @@ public class Enemy : MonoBehaviour {
     void Start () {
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
+		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
+		gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
