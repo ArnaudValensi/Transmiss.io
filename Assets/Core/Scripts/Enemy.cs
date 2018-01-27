@@ -82,17 +82,8 @@ public class Enemy : MonoBehaviour {
     // Change team
     public void setTeam()
     {
-        Color tmpColor = GetComponent<MeshRenderer>().material.color;
-        for (int i = 0; i < gameManager.entitiesOfColors.Count; i++)
-        {
-            if (tmpColor == gameManager.colors[i])
-                gameManager.entitiesOfColors[i]--;
-        }
-        int j = 0;
-        while (gameManager.entitiesOfColors[j] != 0)
-            j++;
-        GetComponent<MeshRenderer>().material.color = gameManager.colors[j];
-        gameManager.entitiesOfColors[j] += 1;
+		gameManager.removeTeam(gameObject);
+		gameManager.setTeam(gameObject);
     }
 
     // Return a random point in the map

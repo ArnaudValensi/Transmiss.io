@@ -36,9 +36,7 @@ public class Bullet : MonoBehaviour
             collider.GetComponent<MeshRenderer>().material.color != GetComponent<MeshRenderer>().material.color)
         {
             int i = 0;
-            bool incrementDone = false;
-            bool decrementDone = false;
-            while (i < gameManager.colors.Count && !decrementDone && !incrementDone)
+			while (i < gameManager.colors.Count)
             {
                 if (collider.GetComponent<MeshRenderer>().material.color == gameManager.colors[i])
                     gameManager.entitiesOfColors[i] -= 1;

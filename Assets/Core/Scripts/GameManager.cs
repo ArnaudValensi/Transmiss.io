@@ -29,4 +29,13 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		enemy.GetComponent<MeshRenderer>().material.color = colors[j];
 		entitiesOfColors[j] += 1;
 	}
+
+	public void removeTeam(GameObject enemy) {
+		Color tmpColor = enemy.GetComponent<MeshRenderer>().material.color;
+		for (int i = 0; i < entitiesOfColors.Count; i++)
+		{
+			if (tmpColor == colors[i])
+				entitiesOfColors[i]--;
+		}
+	}
 }
