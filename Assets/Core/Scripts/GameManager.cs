@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
@@ -9,15 +8,17 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
     public List<Color> colors;
     public List<int> entitiesOfColors;
 
-    public Dictionary<Color, int> colorsEntities;
+    Dictionary<Color, int> colorsEntities;
 
     void Start()
     {
-        initiateColorsEntities();
+        InitiateColorsEntities();
     }
 
-    void initiateColorsEntities()
+    void InitiateColorsEntities()
     {
+		colorsEntities = new Dictionary<Color, int>();
+
         for (int i = 0; i < colors.Count; i++)
         {
             print(colors[i]);
