@@ -46,12 +46,14 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator LoadShoot() {
+		shoot.LoadShoot();
+
 		while (Input.GetMouseButton(0)) {
 			yield return null;
 		}
 
 		isShooting = false;
-		shoot.DoShoot(direction);
+		shoot.ReleaseShoot(direction);
 	}
 
 	bool GetMousePositionInWorld(out Vector3 targetPosition) {
