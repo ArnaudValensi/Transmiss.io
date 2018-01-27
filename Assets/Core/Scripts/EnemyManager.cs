@@ -10,10 +10,8 @@ public class EnemyManager : MonoBehaviour {
     GameManager gameManager;
 
 	public void Start () {
-        Debug.Log("Start enemyManager");
         gameManager = GameManager.Instance;
         instantiateEnnemies();
-        Debug.Log("End enemy instance");
     }
 
     void instantiateEnnemies()
@@ -23,18 +21,8 @@ public class EnemyManager : MonoBehaviour {
         {
             Vector3 randomPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.AngleAxis(45, Vector3.up), enemiesHolder.transform);
-            setTeam(enemy);
             gameManager.entityList.Add(enemy);
         }
-    }
-
-    void setTeam(GameObject enemy)
-    {
-        int j = 0;
-        while (gameManager.entitiesOfColors[j] != 0)
-            j++;
-        enemy.GetComponent<MeshRenderer>().material.color = gameManager.colors[j];
-        gameManager.entitiesOfColors[j] += 1;
     }
 
     Vector3 randomInMap(Vector2 mins, Vector2 maxes)

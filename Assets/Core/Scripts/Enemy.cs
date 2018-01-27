@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     public float rotationSpeed;
 
     EnemyManager enemyManager;
-	GameManager gameManager;
+    GameManager gameManager;
     Shoot shoot;
     NavMeshAgent agent;
     Transform indicator;
@@ -25,11 +25,14 @@ public class Enemy : MonoBehaviour {
 		gameManager = GameManager.Instance;
 		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
+        setTeam();
         StartCoroutine("setBehaviour");
     }
 
     IEnumerator setBehaviour()
     {
+        yield return null;
+
         while (true)
         {
             behaviour = Random.Range(0, 3);
@@ -80,6 +83,16 @@ public class Enemy : MonoBehaviour {
                 StartCoroutine("Shoot");
             yield return new WaitForSeconds(Random.Range(2000, 5000) / 1000);
         }
+    }
+
+    // Change team
+    public void setTeam()
+    {
+        int j = 0;
+        while (gameManager.entitiesOfColors[j] != 0)
+            j++;
+        GetComponent<MeshRenderer>().material.color = gameManager.colors[j];
+        gameManager.entitiesOfColors[j] += 1;
     }
 
     // Return a random point in the map
