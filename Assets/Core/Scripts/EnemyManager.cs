@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
@@ -10,15 +9,9 @@ public class EnemyManager : MonoBehaviour {
 
     GameManager gameManager;
 
-	// Use this for initialization
 	void Start () {
 		gameManager = GameManager.Instance;
         instantiateEnnemies();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     void instantiateEnnemies()
@@ -47,7 +40,6 @@ public class EnemyManager : MonoBehaviour {
         float x = Random.Range(mins.x, maxes.x);
         float y = Random.Range(mins.y, maxes.y);
 
-        Vector3 targetPoint = new Vector3(x, 0f, y);
-        return (targetPoint);
+		return new Vector3(x, 0f, y);
     }
 }

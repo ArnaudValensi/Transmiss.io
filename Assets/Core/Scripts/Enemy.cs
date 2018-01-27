@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
 		shoot = GetComponent<Shoot>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
 		gameManager = GameManager.Instance;
-        indicator = transform.Find("Indicator");
+		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
     }
 

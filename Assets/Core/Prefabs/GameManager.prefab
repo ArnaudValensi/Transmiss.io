@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a585d79cd9864254a8478208933f9650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundsMin: {x: -30, y: 30}
-  boundsMax: {x: -30, y: 30}
+  boundsMin: {x: -30, y: -30}
+  boundsMax: {x: 30, y: 30}
   entityList: []
   colors:
   - {r: 0.20000002, g: 0.2392157, b: 0.9803922, a: 0}
