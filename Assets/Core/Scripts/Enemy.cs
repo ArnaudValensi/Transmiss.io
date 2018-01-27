@@ -6,21 +6,17 @@ public class Enemy : MonoBehaviour {
 
     public float rotationSpeed;
 
-    EnemyManager enemyManager;
     GameManager gameManager;
     Shoot shoot;
     NavMeshAgent agent;
     Transform indicator;
     Color ownColor;
 
-    float time = 0;
-    float previousTime = 0;
     int behaviour = 0;
 
     void Start () {
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
-		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
 		gameManager = GameManager.Instance;
 		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
