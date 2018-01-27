@@ -3,11 +3,14 @@
 public class Shoot : MonoBehaviour {
 
 	public GameObject bulletPrefab;
-	public Transform bulletHolder;
+
+	Transform bulletHolder;
+
+	void Start() {
+		bulletHolder = GameObject.Find("/Environment/BulletsHolder").transform;
+	}
 
 	public void DoShoot(Vector3 direction) {
-		Debug.Log("Shoot, direction: " + direction);
-
 		Quaternion rotation = Quaternion.LookRotation(direction);
 
 		Instantiate(bulletPrefab, transform.position, rotation, bulletHolder);

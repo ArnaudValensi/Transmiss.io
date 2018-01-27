@@ -36,13 +36,10 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator LoadShoot() {
-		Debug.Log("LoadShoot");
 		while (Input.GetMouseButton(0)) {
-			Debug.Log("Loading shoot");
 			yield return null;
 		}
 
-		Debug.Log("Stop load shoot");
 		isShooting = false;
 		shoot.DoShoot(direction);
 	}
