@@ -10,10 +10,12 @@ public class Player : MonoBehaviour {
 	Vector3 direction = Vector3.zero;
 	Shoot shoot;
 	bool isShooting = false;
+	Transform indicator;
 
 	void Start() {
 		controller = GetComponent<CharacterController>();
 		shoot = GetComponent<Shoot>();
+		indicator = transform.Find("IndicatorHolder");
 	}
 
 	void Update() {
@@ -33,6 +35,14 @@ public class Player : MonoBehaviour {
 			isShooting = true;
 			StartCoroutine(LoadShoot());
 		}
+
+		UpdateIndicator();
+	}
+
+	void UpdateIndicator() {
+		Quaternion rotation = Quaternion.LookRotation(direction);
+
+		indicator.rotation = rotation;
 	}
 
 	IEnumerator LoadShoot() {
