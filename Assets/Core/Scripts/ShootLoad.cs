@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 
 public class ShootLoad : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class ShootLoad : MonoBehaviour {
 	public float indicatorsOffset = 0.25f;
 	public GameObject indicatorPrefab;
 	public float increaseTime = 0.5f;
+	public UnityEvent OnShootMaxLoad;
+	public UnityEvent OnShootStop;
 
 	List<GameObject> indicators = new List<GameObject>();
 
@@ -32,10 +35,14 @@ public class ShootLoad : MonoBehaviour {
 			yield return new WaitForSeconds(increaseTime);
 			indicators[i].SetActive(true);
 		}
+
+		OnShootMaxLoad.Invoke();
 	}
 
 	public void Reset() {
 		StopCoroutine("Load");
+
+		OnShootStop.Invoke();
 
 		for (int i = 0; i < indicators.Count; i++) {
 			indicators[i].SetActive(false);
