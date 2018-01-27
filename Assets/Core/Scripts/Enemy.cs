@@ -85,7 +85,8 @@ public class Enemy : MonoBehaviour {
             //targetPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
             float strength = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
+			var rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
+			transform.SetRotationY(rotation.eulerAngles.y);
             yield return null;
         }
         // Cast done, shoot
@@ -94,4 +95,5 @@ public class Enemy : MonoBehaviour {
 		shoot.ReleaseShoot(shootVector);
         agent.isStopped = false;
     }
+
 }
