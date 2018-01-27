@@ -17,9 +17,7 @@ public class Enemy : MonoBehaviour {
     float previousTime = 0;
     int behaviour = 0;
 
-
-    // Use this for initialization
-    public void Init () {
+    void Start () {
         Debug.Log("Start enemy");
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
