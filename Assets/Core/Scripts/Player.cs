@@ -7,9 +7,11 @@ public class Player : MonoBehaviour {
 
 	CharacterController controller;
 	Vector3 direction = Vector3.zero;
+	Shoot shoot;
 
 	void Start() {
 		controller = GetComponent<CharacterController>();
+		shoot = GetComponent<Shoot>();
 	}
 
 	void Update() {
@@ -22,6 +24,10 @@ public class Player : MonoBehaviour {
 
 		Vector3 movement = direction * (movementSpeed * Time.deltaTime);
 		controller.Move(movement);
+
+		if (Input.GetMouseButtonDown(0)) {
+			shoot.DoShoot(direction);
+		}
 	}
 
 	bool GetMousePositionInWorld(out Vector3 targetPosition) {
