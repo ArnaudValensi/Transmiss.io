@@ -6,10 +6,11 @@ public class Enemy : MonoBehaviour {
 
     public float rotationSpeed;
 
-	EnemyManager enemyManager;
+    EnemyManager enemyManager;
 	GameManager gameManager;
     Shoot shoot;
     NavMeshAgent agent;
+    Transform indicator;
 
     float time = 0;
     float previousTime = 0;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour {
 		shoot = GetComponent<Shoot>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
 		gameManager = GameManager.Instance;
+        indicator = transform.Find("Indicator");
     }
 
     // Update is called once per frame
@@ -84,7 +86,7 @@ public class Enemy : MonoBehaviour {
         }
         print(transform.rotation);
         // Cast done, shoot
-        Vector3 shootVector = targetPos - transform.position;
+        Vector3 shootVector = (indicator.position - transform.position);
         shootVector.Normalize();
         shoot.DoShoot(shootVector);
         agent.isStopped = false;
