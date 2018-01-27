@@ -71,8 +71,10 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Shoot()
     {
+		shoot.LoadShoot();
+
         yield return new WaitForSeconds(Random.Range(0, 2000) / 1000);
-        Vector3 targetPos = new Vector3();
+		Vector3 targetPos;
 
         agent.isStopped = true;
         float randomCastTime = Random.Range(0, 3000) / 1000;
