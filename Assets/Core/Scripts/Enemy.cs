@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
     Shoot shoot;
     NavMeshAgent agent;
     Transform indicator;
+    Color ownColor;
 
     float time = 0;
     float previousTime = 0;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour {
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
 		gameManager = GameManager.Instance;
         indicator = transform.Find("Indicator");
+        ownColor = GetComponent<MeshRenderer>().material.color;
     }
 
     // Update is called once per frame
@@ -31,12 +33,10 @@ public class Enemy : MonoBehaviour {
         {
             Vector3 targetPoint = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             agent.SetDestination(targetPoint);
+            if (Random.Range(0, 100) > 25)
+                StartCoroutine("Shoot");
         }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            StartCoroutine("Shoot");
-        }
+        
         previousTime = time;
     }
 
@@ -55,12 +55,14 @@ public class Enemy : MonoBehaviour {
     {
         Vector3 targetPos = new Vector3(100, 100, 100);
         float dist = Vector3.Distance(transform.position, targetPos);
-        for (int i = 0; i < enemyManager.characterList.Length; i++)
+        for (int i = 0; i < gameManager.entityList.Count; i++)
         {
-            float dist2 = Vector3.Distance(transform.position, enemyManager.characterList[i].GetComponent<Transform>().position);
-            if(dist2 < dist && dist2 != 0)
+            GameObject entity = gameManager.entityList[i];
+            Color targetColor = entity.GetComponent<MeshRenderer>().material.color;
+            float dist2 = Vector3.Distance(transform.position, entity.GetComponent<Transform>().position);
+            if(dist2 < dist && dist2 != 0 && ownColor != targetColor)
             {
-                targetPos = enemyManager.characterList[i].transform.position;
+                targetPos = gameManager.entityList[i].transform.position;
                 dist = dist2;
             }
         }
@@ -69,11 +71,11 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Shoot()
     {
+        yield return new WaitForSeconds(Random.Range(0, 2000) / 1000);
         Vector3 targetPos = new Vector3();
 
-
         agent.isStopped = true;
-        float randomCastTime = Random.value * 5;
+        float randomCastTime = Random.Range(0, 3000) / 1000;
         // Shoot casting
         for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
         {
@@ -84,11 +86,10 @@ public class Enemy : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
             yield return null;
         }
-        print(transform.rotation);
         // Cast done, shoot
         Vector3 shootVector = (indicator.position - transform.position);
         shootVector.Normalize();
-        shoot.DoShoot(shootVector);
+        shoot.DoShoot(shootVector, this.gameObject);
         agent.isStopped = false;
     }
 }

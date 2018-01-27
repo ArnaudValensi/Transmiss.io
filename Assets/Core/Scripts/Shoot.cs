@@ -10,10 +10,10 @@ public class Shoot : MonoBehaviour {
 		bulletHolder = GameObject.Find("/Environment/BulletsHolder").transform;
 	}
 
-	public void DoShoot(Vector3 direction) {
+	public void DoShoot(Vector3 direction, GameObject shooter) {
 		Quaternion rotation = Quaternion.LookRotation(direction);
-
-		Instantiate(bulletPrefab, transform.position, rotation, bulletHolder);
-	}
+		GameObject bullet = Instantiate(bulletPrefab, transform.position, rotation, bulletHolder);
+        bullet.GetComponent<Bullet>().shooter = shooter;
+    }
 
 }

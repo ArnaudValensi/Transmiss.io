@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
 		}
 
 		isShooting = false;
-		shoot.DoShoot(direction);
+		shoot.DoShoot(direction, this.gameObject);
 	}
 
 	bool GetMousePositionInWorld(out Vector3 targetPosition) {
