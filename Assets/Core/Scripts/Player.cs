@@ -67,7 +67,6 @@ public class Player : MonoBehaviour {
 
     public void setTeam()
     {
-		gameManager.removeTeam(gameObject);
 		gameManager.setTeam(gameObject);
     }
 

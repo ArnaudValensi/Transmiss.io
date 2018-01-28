@@ -82,7 +82,6 @@ public class Enemy : MonoBehaviour {
     // Change team
     public void setTeam()
     {
-		gameManager.removeTeam(gameObject);
 		gameManager.setTeam(gameObject);
     }
 

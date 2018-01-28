@@ -6,36 +6,16 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 	public Vector2 boundsMax;
 	public List<GameObject> entityList;
 	public List<Color> colors;
-	public List<int> entitiesOfColors;
 
-	Dictionary<Color, int> colorsEntities;
+	TeamsManager teamsManager;
 
 	void Start() {
-		InitiateColorsEntities();
-	}
-
-	void InitiateColorsEntities() {
-		colorsEntities = new Dictionary<Color, int>();
-
-		for (int i = 0; i < colors.Count; i++) {
-			colorsEntities.Add(colors[i], entitiesOfColors[i]);
-		}
+		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
+		teamsManager.Init(colors);
 	}
 
 	public void setTeam(GameObject enemy) {
-		int j = 0;
-		while (entitiesOfColors[j] != 0)
-			j++;
-		enemy.GetComponent<MeshRenderer>().material.color = colors[j];
-		entitiesOfColors[j] += 1;
+		teamsManager.AddToNewTeam(enemy);
 	}
 
-	public void removeTeam(GameObject enemy) {
-		Color tmpColor = enemy.GetComponent<MeshRenderer>().material.color;
-		for (int i = 0; i < entitiesOfColors.Count; i++)
-		{
-			if (tmpColor == colors[i])
-				entitiesOfColors[i]--;
-		}
-	}
 }
