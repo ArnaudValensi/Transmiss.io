@@ -26,6 +26,7 @@ public class EnemyManager : MonoBehaviour {
         {
             Vector3 randomPos = randomInMap(gameManager.boundsMin, gameManager.boundsMax);
             GameObject enemy = Instantiate(enemyPrefab, randomPos, Quaternion.AngleAxis(45, Vector3.up), enemiesHolder.transform);
+			enemy.GetComponent<Enemy>().Init();
 			enemy.name = string.Format("Enemy {0}", i);
             GameManager.Instance.setTeam(enemy);
             gameManager.entityList.Add(enemy);

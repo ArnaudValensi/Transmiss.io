@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
 		controller = GetComponent<CharacterController>();
 		shoot = GetComponent<Shoot>();
         indicator = transform.Find("IndicatorHolder");
+		GetComponent<SpriteHolder>().Init();
 	}
 
 	public void Init() {

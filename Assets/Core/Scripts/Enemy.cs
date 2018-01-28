@@ -14,7 +14,8 @@ public class Enemy : MonoBehaviour {
 
     int behaviour = 0;
 
-    void Start () {
+    public void Init () {
+		Debug.Log("Start enemy");
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour {
 		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
         StartCoroutine("setBehaviour");
+		GetComponent<SpriteHolder>().Init();
     }
 
     IEnumerator setBehaviour()

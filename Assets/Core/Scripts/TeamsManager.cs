@@ -24,6 +24,8 @@ public class ColorComparer : IEqualityComparer<Color> {
 }
 
 public class TeamsManager : MonoBehaviour {
+	public Sprite[] sprites;
+
 	Dictionary<Color, List<GameObject>> teamsInfo;
 	LeaderBoard leaderBoard;
 	bool isAllPlayersLoaded;
@@ -73,7 +75,30 @@ public class TeamsManager : MonoBehaviour {
 
 	void UpdatePlayerInfo() {
 		leaderBoard.DisplayTeams(teamsInfo);
+		UpdateRankSpriteAndColor();
 		CheckEndGame();
+	}
+
+	void UpdateRankSpriteAndColor() {
+		if (!isAllPlayersLoaded) {
+			return;
+		}
+
+		foreach (var team in teamsInfo) {
+			Color teamColor = team.Key;
+			List<GameObject> players = team.Value;
+			int playersCount = players.Count;
+
+			int i = 0;
+			foreach (var player in players) {
+				SpriteHolder spriteHolder = player.GetComponent<SpriteHolder>();
+				SpriteRenderer playerSprite = spriteHolder.GetSpriteRenderer();
+
+				playerSprite.sprite = sprites[playersCount - 1];
+				playerSprite.color = teamColor;
+				i++;
+			}
+		}
 	}
 
 	void CheckEndGame() {
