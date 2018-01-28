@@ -6,12 +6,16 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 	public Vector2 boundsMax;
 	public List<GameObject> entityList;
 	public List<Color> colors;
+	public bool isGameStarted;
 
 	TeamsManager teamsManager;
 	EnemyManager enemyManager;
 	GameObject leaderBoardCanvas;
 	GameObject startCanvas;
 	Player player;
+	public GameObject enemiesHolder;
+	public GameObject bulletsHolder;
+
 
 	void Start() {
 		Time.timeScale = 0;
@@ -20,6 +24,8 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
 		player = GameObject.Find("/Environment/Character <--|").GetComponent<Player>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
+		enemiesHolder = GameObject.Find("Environment/EnemiesHolder");
+		bulletsHolder = GameObject.Find("Environment/BulletHolder");
 
 		leaderBoardCanvas.SetActive(false);
 	}
@@ -34,7 +40,21 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		Debug.Log("End game");
 
 		Time.timeScale = 0;
+		isGameStarted = false;
 		startCanvas.SetActive(true);
+	}
+
+
+	void Reset() {
+		// Remove bullets
+		foreach (Transform child in enemiesHolder.transform) {
+			Object.DestroyImmediate(child.gameObject);
+		}
+
+		// Remove enemies
+		foreach (Transform child in enemiesHolder.transform) {
+			Object.Destroy(child.gameObject);
+		}
 	}
 
 //	public void ResetGame() {
@@ -46,6 +66,8 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 	public void StartGame() {
 		Debug.Log("StartGame");
 
+		Reset();
+
 		startCanvas.SetActive(false);
 		leaderBoardCanvas.SetActive(true);
 
@@ -53,6 +75,7 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		enemyManager.Init();
 		player.Init();
 
+		isGameStarted = true;
 		Time.timeScale = 1;
 	}
 

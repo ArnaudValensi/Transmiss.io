@@ -15,9 +15,17 @@ public class EnemyManager : MonoBehaviour {
 
 	public void Init() {
 		Debug.Log("Init enemy manager");
+
+//		Reset();
 		instantiateEnnemies();
 	}
-
+//
+//	void Reset() {
+//		foreach (Transform child in enemiesHolder.transform) {
+//			Object.Destroy(child.gameObject);
+//		}
+//	}
+//
     void instantiateEnnemies()
     {
         gameManager.entityList = new List<GameObject>();

@@ -18,16 +18,19 @@ public class Bullet : MonoBehaviour
         StartCoroutine("DestroyBullet");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        GetComponent<MeshRenderer>().material.color = shooter.GetComponent<MeshRenderer>().material.color;
+		if (GameManager.Instance.isGameStarted && gameObject != null && shooter != null) {
+			GetComponent<MeshRenderer>().material.color = shooter.GetComponent<MeshRenderer>().material.color;
+		}
     }
 
     IEnumerator DestroyBullet()
     {
         yield return new WaitForSeconds(lifeSpan);
-        Destroy(this.gameObject);
+		if (gameObject != null) {
+			Destroy(this.gameObject);
+		}
     }
 
     void OnTriggerEnter(Collider collider)
@@ -37,7 +40,9 @@ public class Bullet : MonoBehaviour
         {
 			Color shooterColor = GetComponent<MeshRenderer>().material.color;
 			teamsManager.SwitchToTeam(collider.gameObject, shooterColor);
-            Destroy(this.gameObject);
+			if (gameObject != null) {
+				Destroy(this.gameObject);
+			}
         }
     }
 }
