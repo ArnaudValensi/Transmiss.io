@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour {
     NavMeshAgent agent;
     Transform indicator;
     Color ownColor;
+	TeamsManager teamsManager;
 
     int behaviour = 0;
 
     void Start () {
+		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
 		gameManager = GameManager.Instance;
@@ -82,7 +84,7 @@ public class Enemy : MonoBehaviour {
     // Change team
     public void setTeam()
     {
-		gameManager.setTeam(gameObject);
+		teamsManager.AddToNewTeam(gameObject);
     }
 
     // Return a random point in the map

@@ -12,13 +12,17 @@ public class Player : MonoBehaviour {
 	Shoot shoot;
 	bool isShooting = false;
 	Transform indicator;
+	TeamsManager teamsManager;
 
 	void Start() {
 		gameManager = GameManager.Instance;
+		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
 		controller = GetComponent<CharacterController>();
 		shoot = GetComponent<Shoot>();
         gameManager.entityList.Add(this.gameObject);
         indicator = transform.Find("IndicatorHolder");
+
+		setTeam();
 	}
 
 	void Update() {
@@ -41,6 +45,7 @@ public class Player : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+			// TODO: replace
             setTeam();
         }
 
@@ -67,7 +72,7 @@ public class Player : MonoBehaviour {
 
     public void setTeam()
     {
-		gameManager.setTeam(gameObject);
+		teamsManager.AddToNewTeam(gameObject);
     }
 
     bool GetMousePositionInWorld(out Vector3 targetPosition) {
