@@ -9,12 +9,15 @@ public class EnemyManager : MonoBehaviour {
 
     GameManager gameManager;
 
-	public void Start () {
+	void Start () {
         gameManager = GameManager.Instance;
-        instantiateEnnemies();
     }
 
-    void instantiateEnnemies()
+	public void Init() {
+		instantiateEnnemies();
+	}
+
+	void instantiateEnnemies()
     {
         gameManager.entityList = new List<GameObject>();
         for (int i = 0; i < nbEnnemies; i++)

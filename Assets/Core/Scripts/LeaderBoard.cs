@@ -14,9 +14,18 @@ public class LeaderBoard : MonoBehaviour {
 		playerTexts = new List<GameObject>();
 		playersLayout = transform.Find("Panel/PlayersLayout").gameObject;
 
+		Reset();
+
 		for (int i = 0; i < 26; i++) {
 			GameObject newPlayerText = Instantiate(playerTextPrefab, playersLayout.transform);
 			playerTexts.Add(newPlayerText);
+		}
+	}
+
+	void Reset() {
+		// Remove enemies
+		foreach (Transform child in playersLayout.transform) {
+			UnityEngine.Object.Destroy(child.gameObject);
 		}
 	}
 
