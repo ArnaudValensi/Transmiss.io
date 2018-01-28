@@ -24,6 +24,25 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		leaderBoardCanvas.SetActive(false);
 	}
 
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			EndGame();
+		}
+	}
+
+	void EndGame() {
+		Debug.Log("End game");
+
+		Time.timeScale = 0;
+		startCanvas.SetActive(true);
+	}
+
+//	public void ResetGame() {
+//		Debug.Log("ResetGame");
+//
+//		leaderBoardCanvas.SetActive(false);
+//	}
+
 	public void StartGame() {
 		Debug.Log("StartGame");
 
