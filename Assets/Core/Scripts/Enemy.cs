@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 
     public float rotationSpeed;
-
     GameManager gameManager;
     Shoot shoot;
     NavMeshAgent agent;
@@ -22,7 +21,6 @@ public class Enemy : MonoBehaviour {
 		gameManager = GameManager.Instance;
 		indicator = transform.Find("IndicatorHolder/Indicator");
         ownColor = GetComponent<MeshRenderer>().material.color;
-        setTeam();
         StartCoroutine("setBehaviour");
     }
 
@@ -79,12 +77,6 @@ public class Enemy : MonoBehaviour {
                 StartCoroutine("Shoot");
             yield return new WaitForSeconds(Random.Range(2000, 5000) / 1000);
         }
-    }
-
-    // Change team
-    public void setTeam()
-    {
-		teamsManager.AddToNewTeam(gameObject);
     }
 
     // Return a random point in the map

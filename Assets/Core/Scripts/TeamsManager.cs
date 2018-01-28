@@ -24,16 +24,21 @@ public class ColorComparer : IEqualityComparer<Color> {
 
 public class TeamsManager : MonoBehaviour {
 	Dictionary<Color, List<GameObject>> teamsInfo;
+	LeaderBoard leaderBoard;
 
 	public void Init(List<Color> colors) {
+		leaderBoard = GameObject.Find("LeaderBoardCanvas").GetComponent<LeaderBoard>();
 		teamsInfo = new Dictionary<Color, List<GameObject>>(colors.Count, new ColorComparer());
 
 		for (int i = 0; i < colors.Count; i++) {
 			teamsInfo.Add(colors[i], new List<GameObject>());
 		}
+
+		leaderBoard.Init();
 	}
 
 	public void AddToNewTeam(GameObject player) {
+		Debug.Log("AddToNewTeam: " + player.name);
 		foreach (var team in teamsInfo) {
 			if (team.Value.Count == 0) {
 				player.GetComponent<MeshRenderer>().material.color = team.Key;
@@ -41,17 +46,23 @@ public class TeamsManager : MonoBehaviour {
 				break;
 			}
 		}
+
+		leaderBoard.DisplayTeams(teamsInfo);
 	}
 
 	public void AddToTeam(Color teamColor, GameObject player) {
+		Debug.Log("AddToTeam");
 		player.GetComponent<MeshRenderer>().material.color = teamColor;
 		teamsInfo[teamColor].Add(player);
+		leaderBoard.DisplayTeams(teamsInfo);
 	}
 
 	public void SwitchToTeam(GameObject player, Color toTeamColor) {
+		Debug.Log("SwitchToTeam");
 		Color teamColor = player.GetComponent<MeshRenderer>().material.color;
 
 		teamsInfo[teamColor].Remove(player);
 		AddToTeam(toTeamColor, player);
+		leaderBoard.DisplayTeams(teamsInfo);
 	}
 }
