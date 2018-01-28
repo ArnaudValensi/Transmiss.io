@@ -9,10 +9,14 @@ public class EnemyManager : MonoBehaviour {
 
     GameManager gameManager;
 
-	public void Start () {
+	void Start () {
         gameManager = GameManager.Instance;
-        instantiateEnnemies();
     }
+
+	public void Init() {
+		Debug.Log("Init enemy manager");
+		instantiateEnnemies();
+	}
 
     void instantiateEnnemies()
     {

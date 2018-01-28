@@ -19,9 +19,12 @@ public class Player : MonoBehaviour {
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
 		controller = GetComponent<CharacterController>();
 		shoot = GetComponent<Shoot>();
-        gameManager.entityList.Add(this.gameObject);
         indicator = transform.Find("IndicatorHolder");
+	}
 
+	public void Init() {
+		Debug.Log("Init player");
+		gameManager.entityList.Add(this.gameObject);
 		setTeam();
 	}
 
