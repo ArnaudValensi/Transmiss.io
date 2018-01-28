@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour {
 
 		Vector3 targetPos;
 
-        float randomCastTime = Random.Range(0, 2000) / 1000;
+        float randomCastTime = Random.Range(100, 2000) / 1000;
         // Shoot casting
         for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
         {
