@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		}
 	}
 
-	void EndGame() {
+	public void EndGame() {
 		Time.timeScale = 0;
 		isGameStarted = false;
 		startCanvas.SetActive(true);

@@ -8,9 +8,11 @@ public class EnemyManager : MonoBehaviour {
     public int nbEnnemies;
 
     GameManager gameManager;
+	TeamsManager teamsManager;
 
 	void Start () {
         gameManager = GameManager.Instance;
+		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
     }
 
 	public void Init() {
@@ -28,6 +30,8 @@ public class EnemyManager : MonoBehaviour {
             GameManager.Instance.setTeam(enemy);
             gameManager.entityList.Add(enemy);
         }
+
+		teamsManager.SetAllPlayersLoaded();
     }
 
     Vector3 randomInMap(Vector2 mins, Vector2 maxes)
