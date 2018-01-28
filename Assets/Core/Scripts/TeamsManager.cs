@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ColorComparer : IEqualityComparer<Color> {
 	public bool Equals(Color x, Color y) { 
@@ -25,16 +26,23 @@ public class ColorComparer : IEqualityComparer<Color> {
 public class TeamsManager : MonoBehaviour {
 	Dictionary<Color, List<GameObject>> teamsInfo;
 	LeaderBoard leaderBoard;
+	bool isAllPlayersLoaded;
 
 	public void Init(List<Color> colors) {
 		leaderBoard = GameObject.Find("LeaderBoardCanvas").GetComponent<LeaderBoard>();
 		teamsInfo = new Dictionary<Color, List<GameObject>>(colors.Count, new ColorComparer());
+
+		isAllPlayersLoaded = false;
 
 		for (int i = 0; i < colors.Count; i++) {
 			teamsInfo.Add(colors[i], new List<GameObject>());
 		}
 
 		leaderBoard.Init();
+	}
+
+	public void SetAllPlayersLoaded() {
+		isAllPlayersLoaded = true;
 	}
 
 	public void AddToNewTeam(GameObject player) {
@@ -46,13 +54,13 @@ public class TeamsManager : MonoBehaviour {
 			}
 		}
 
-		leaderBoard.DisplayTeams(teamsInfo);
+		UpdatePlayerInfo();
 	}
 
 	public void AddToTeam(Color teamColor, GameObject player) {
 		player.GetComponent<MeshRenderer>().material.color = teamColor;
 		teamsInfo[teamColor].Add(player);
-		leaderBoard.DisplayTeams(teamsInfo);
+		UpdatePlayerInfo();
 	}
 
 	public void SwitchToTeam(GameObject player, Color toTeamColor) {
@@ -60,6 +68,26 @@ public class TeamsManager : MonoBehaviour {
 
 		teamsInfo[teamColor].Remove(player);
 		AddToTeam(toTeamColor, player);
+		UpdatePlayerInfo();
+	}
+
+	void UpdatePlayerInfo() {
 		leaderBoard.DisplayTeams(teamsInfo);
+		CheckEndGame();
+	}
+
+	void CheckEndGame() {
+		if (!isAllPlayersLoaded) {
+			return;
+		}
+
+		var playersByScore = teamsInfo
+			.OrderByDescending(pair => pair.Value.Count)
+			.Select(pair => pair.Value.Count)
+			.ToList();
+
+		if (playersByScore[1] == 0) {
+			GameManager.Instance.EndGame();
+		}
 	}
 }
