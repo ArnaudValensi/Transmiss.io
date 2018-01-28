@@ -38,7 +38,6 @@ public class TeamsManager : MonoBehaviour {
 	}
 
 	public void AddToNewTeam(GameObject player) {
-		Debug.Log("AddToNewTeam: " + player.name);
 		foreach (var team in teamsInfo) {
 			if (team.Value.Count == 0) {
 				player.GetComponent<MeshRenderer>().material.color = team.Key;
@@ -51,14 +50,12 @@ public class TeamsManager : MonoBehaviour {
 	}
 
 	public void AddToTeam(Color teamColor, GameObject player) {
-		Debug.Log("AddToTeam");
 		player.GetComponent<MeshRenderer>().material.color = teamColor;
 		teamsInfo[teamColor].Add(player);
 		leaderBoard.DisplayTeams(teamsInfo);
 	}
 
 	public void SwitchToTeam(GameObject player, Color toTeamColor) {
-		Debug.Log("SwitchToTeam");
 		Color teamColor = player.GetComponent<MeshRenderer>().material.color;
 
 		teamsInfo[teamColor].Remove(player);
