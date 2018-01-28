@@ -21,7 +21,6 @@ public class SoundManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         timeCount = timeCount - Time.deltaTime;
-        print("Time count " + timeCount + " et prev " + previousTime);
         if (timeCount < 20 && previousTime >= 20)
         {
             StartCoroutine("FadeEndSound");

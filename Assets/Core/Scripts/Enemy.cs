@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour {
     int behaviour = 0;
 
     public void Init () {
-		Debug.Log("Start enemy");
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
