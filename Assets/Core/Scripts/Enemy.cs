@@ -63,6 +63,8 @@ public class Enemy : MonoBehaviour {
                 transform.position.y,
                 transform.position.z + (transform.position.z - threatPoint.z));
             agent.SetDestination(targetPoint);
+            //if (Random.Range(0, 100) > 95)
+            //    setTeam();
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
@@ -75,8 +77,15 @@ public class Enemy : MonoBehaviour {
             agent.SetDestination(targetPoint);
             if (Random.Range(0, 100) > 25 && agent.isStopped == false)
                 StartCoroutine("Shoot");
+            //if (Random.Range(0, 100) > 75)
+            //    setTeam();
             yield return new WaitForSeconds(Random.Range(2000, 5000) / 1000);
         }
+    }
+
+    public void setTeam()
+    {
+        teamsManager.AddToNewTeam(gameObject);
     }
 
     // Return a random point in the map
@@ -115,7 +124,7 @@ public class Enemy : MonoBehaviour {
 
 		Vector3 targetPos;
 
-        float randomCastTime = Random.Range(0, 3000) / 1000;
+        float randomCastTime = Random.Range(0, 2000) / 1000;
         // Shoot casting
         for (float f = 0f; f <= randomCastTime; f += Time.deltaTime)
         {
@@ -130,7 +139,7 @@ public class Enemy : MonoBehaviour {
         // Cast done, shoot
         Vector3 shootVector = (indicator.position - transform.position);
         shootVector.Normalize();
-		shoot.ReleaseShoot(shootVector);
+		shoot.ReleaseShoot(shootVector, randomCastTime);
         agent.isStopped = false;
     }
 

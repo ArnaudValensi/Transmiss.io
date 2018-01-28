@@ -64,13 +64,14 @@ public class Player : MonoBehaviour {
 
 	IEnumerator LoadShoot() {
 		shoot.LoadShoot();
-
+        float f = 0;
 		while (Input.GetMouseButton(0)) {
+            f += Time.deltaTime;
 			yield return null;
 		}
 
 		isShooting = false;
-		shoot.ReleaseShoot(direction);
+		shoot.ReleaseShoot(direction, f);
 	}
 
     public void setTeam()
