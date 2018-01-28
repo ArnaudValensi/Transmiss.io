@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Init() {
-		Debug.Log("Init player");
+		transform.position = Vector3.zero;
 		gameManager.entityList.Add(this.gameObject);
 		setTeam();
 	}

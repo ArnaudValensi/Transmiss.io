@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 	}
 
 	void EndGame() {
-		Debug.Log("End game");
-
 		Time.timeScale = 0;
 		isGameStarted = false;
 		startCanvas.SetActive(true);
@@ -57,15 +55,7 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		}
 	}
 
-//	public void ResetGame() {
-//		Debug.Log("ResetGame");
-//
-//		leaderBoardCanvas.SetActive(false);
-//	}
-
 	public void StartGame() {
-		Debug.Log("StartGame");
-
 		Reset();
 
 		startCanvas.SetActive(false);
