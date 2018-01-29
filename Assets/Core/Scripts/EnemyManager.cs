@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour {
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
     }
 
-	public void Init() {
+    public void Init() {
 		instantiateEnnemies();
 	}
 

@@ -6,11 +6,13 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 	public Vector2 boundsMax;
 	public List<GameObject> entityList;
 	public List<Color> colors;
+    public Timer timer;
 	public bool isGameStarted;
 
 	TeamsManager teamsManager;
-	EnemyManager enemyManager;
-	GameObject leaderBoardCanvas;
+    EnemyManager enemyManager;
+    SoundManager soundManager;
+    GameObject leaderBoardCanvas;
 	GameObject startCanvas;
 	Player player;
 	public GameObject enemiesHolder;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		teamsManager = GameObject.Find("/Managers/TeamsManager").GetComponent<TeamsManager>();
 		player = GameObject.Find("/Environment/Character <--|").GetComponent<Player>();
 		enemyManager = GameObject.Find("/Managers/EnemyManager").GetComponent<EnemyManager>();
+		soundManager = GameObject.Find("/Managers/SoundManager").GetComponent<SoundManager>();
 		enemiesHolder = GameObject.Find("Environment/EnemiesHolder");
 		bulletsHolder = GameObject.Find("Environment/BulletHolder");
 
@@ -34,9 +37,9 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			EndGame();
 		}
-	}
+    }
 
-	public void EndGame() {
+    public void EndGame() {
 		Time.timeScale = 0;
 		isGameStarted = false;
 		startCanvas.SetActive(true);
@@ -57,15 +60,18 @@ public class GameManager : MonoBehaviourSingletonPersistent<GameManager> {
 
 	public void StartGame() {
 		Reset();
+        timer.SetTimer(100);
 
-		startCanvas.SetActive(false);
+        startCanvas.SetActive(false);
 		leaderBoardCanvas.SetActive(true);
 
+        soundManager.Init();
 		teamsManager.Init(colors);
 		enemyManager.Init();
 		player.Init();
 
-		isGameStarted = true;
+
+        isGameStarted = true;
 		Time.timeScale = 1;
 	}
 

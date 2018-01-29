@@ -82,3 +82,7 @@ MonoBehaviour:
   - {r: 0.2392157, g: 0.5372549, b: 0.74509805, a: 1}
   - {r: 1, g: 0.78823537, b: 0.14901961, a: 1}
   - {r: 0.6784314, g: 0, b: 0, a: 1}
+  timer: {fileID: 0}
+  isGameStarted: 0
+  enemiesHolder: {fileID: 0}
+  bulletsHolder: {fileID: 0}

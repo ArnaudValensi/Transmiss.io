@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour {
     Shoot shoot;
     NavMeshAgent agent;
     Transform indicator;
-    Color ownColor;
 	TeamsManager teamsManager;
 
     int behaviour = 0;
@@ -19,8 +18,7 @@ public class Enemy : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
 		shoot = GetComponent<Shoot>();
 		gameManager = GameManager.Instance;
-		indicator = transform.Find("IndicatorHolder/Indicator");
-        ownColor = GetComponent<MeshRenderer>().material.color;
+        indicator = transform.Find("IndicatorHolder/Indicator");
         StartCoroutine("setBehaviour");
 		GetComponent<SpriteHolder>().Init();
     }
@@ -109,7 +107,7 @@ public class Enemy : MonoBehaviour {
             GameObject entity = gameManager.entityList[i];
             Color targetColor = entity.GetComponent<MeshRenderer>().material.color;
             float dist2 = Vector3.Distance(transform.position, entity.GetComponent<Transform>().position);
-            if(dist2 < dist && dist2 != 0 && ownColor != targetColor)
+            if(dist2 < dist && dist2 != 0 && GetComponent<MeshRenderer>().material.color != targetColor)
             {
                 targetPos = gameManager.entityList[i].transform.position;
                 dist = dist2;
