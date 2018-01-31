@@ -5,8 +5,8 @@ public class Bullet : MonoBehaviour
 {
     public GameManager gameManager;
     public float force = 1f;
-    public GameObject shooter;
     public float lifeSpan;
+    public GameObject shooter;
 	TeamsManager teamsManager;
 
     void Start()

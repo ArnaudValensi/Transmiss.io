@@ -66,7 +66,7 @@ public class TeamsManager : MonoBehaviour {
 	}
 
 	public void SwitchToTeam(GameObject player, Color toTeamColor) {
-		Color teamColor = player.GetComponent<MeshRenderer>().material.color;
+        Color teamColor = player.GetComponent<MeshRenderer>().material.color;
 
 		teamsInfo[teamColor].Remove(player);
 		AddToTeam(toTeamColor, player);

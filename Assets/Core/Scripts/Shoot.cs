@@ -24,7 +24,8 @@ public class Shoot : MonoBehaviour {
 		bullet.GetComponent<Bullet>().shooter = gameObject;
         if (castTime > 2)
             castTime = 2;
-        bullet.GetComponent<Bullet>().force = 200f + castTime * 350f;
+        bullet.GetComponent<Bullet>().force = 600f + castTime * 500f;
+        bullet.GetComponent<Bullet>().lifeSpan = 0.3f + castTime * 0.3f;
+        bullet.transform.localScale = new Vector3(0.5f + castTime * 0.25f, 0.5f + castTime * 0.25f, 0.5f + castTime * 0.25f);
 	}
-
 }
